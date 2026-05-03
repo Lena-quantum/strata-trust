@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>STRATA — design hub for architects</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app">
+
+  <!-- ========================== TOPBAR ========================== -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">◐</span>
+      <span class="brand-name">STRATA</span>
+      <span class="project-name">Riverside Pavilion · Berlin · 480 m² · public</span>
+    </div>
+
+    <nav class="stage-nav" id="stage-nav">
+      <button class="stage-btn is-active" data-stage="ideation"><span class="stage-num">01</span> Ideation</button>
+      <button class="stage-btn" data-stage="concept"><span class="stage-num">02</span> Concept</button>
+      <button class="stage-btn" data-stage="blueprint"><span class="stage-num">03</span> Blueprint</button>
+      <button class="stage-btn" data-stage="detail"><span class="stage-num">04</span> Detail</button>
+      <button class="stage-btn" data-stage="simulation"><span class="stage-num">05</span> Simulation</button>
+    </nav>
+
+    <div class="trust-meter">
+      <button class="meter-pill" data-meter="competence">
+        <span class="meter-label">competence</span>
+        <span class="meter-gauge"><span class="meter-fill" id="g-competence" data-level="low" style="width: 30%"></span></span>
+        <span class="meter-value" id="m-competence">peer</span>
+      </button>
+      <button class="meter-pill" data-meter="confidence">
+        <span class="meter-label">confidence</span>
+        <span class="meter-gauge"><span class="meter-fill" id="g-confidence" data-level="low" style="width: 30%"></span></span>
+        <span class="meter-value" id="m-confidence">low</span>
+      </button>
+      <button class="meter-pill" data-meter="accuracy">
+        <span class="meter-label">accuracy</span>
+        <span class="meter-gauge"><span class="meter-fill" id="g-accuracy" data-level="low" style="width: 30%"></span></span>
+        <span class="meter-value" id="m-accuracy">unsourced ok</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================== WORKSPACE ========================== -->
+  <main class="workspace">
+    <section class="canvas">
+
+      <!-- ============= STAGE 01 — IDEATION (zoomable mood board) ============= -->
+      <div class="stage-panel is-active" data-stage="ideation">
+        <div class="stage-head">
+          <div>
+            <h1>Ideation</h1>
+            <span class="stage-sub">references &amp; mood — wide net, no sources required</span>
+          </div>
+          <div class="stage-posture">
+            "I generate associations freely. Treat this stage as a wide net, not a recommendation."
+          </div>
+        </div>
+
+        <div class="zoom-canvas" id="zoom-ideation" data-pan="ideation">
+          <span class="zoom-hint">⌘ + scroll · drag to pan</span>
+          <div class="zoom-target target-mood">
+            <div class="mood-grid" id="mood-grid">
+              <!-- mood cards rendered by app.js so we get real images + vote bars without duplicating markup -->
+            </div>
+          </div>
+          <div class="zoom-controls">
+            <button class="zoom-btn" data-zoom="out" aria-label="zoom out">−</button>
+            <span class="zoom-readout" data-zoom-readout="ideation">100%</span>
+            <button class="zoom-btn" data-zoom="in" aria-label="zoom in">+</button>
+            <button class="zoom-btn" data-zoom="reset" aria-label="reset">⟲</button>
+          </div>
+        </div>
+
+        <div class="widget-rail">
+          <div class="ideation-widget">
+            <span class="widget-source-icon">P</span>
+            <div class="widget-text">
+              <strong>Pinterest plugin connected</strong>
+              <small>2 boards · 47 pins · auto-syncing on board updates</small>
+            </div>
+            <button class="widget-action">manage feeds</button>
+          </div>
+          <div class="ideation-widget">
+            <span class="widget-source-icon baunetz">B</span>
+            <div class="widget-text">
+              <strong>Baunetz · public pavilion search</strong>
+              <small>filter: 300–600 m² · public · &lt; 5 yrs · Germany</small>
+            </div>
+            <button class="widget-action">refine query</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============= STAGE 02 — CONCEPT (sophisticated, 3 variants) ============= -->
+      <div class="stage-panel" data-stage="concept">
+        <div class="stage-head">
+          <div>
+            <h1>Concept</h1>
+            <span class="stage-sub">three massing strategies — the assistant scored each against precedent</span>
+          </div>
+          <div class="stage-posture">
+            "I now reference real precedents. I'll mark each claim's source class and flag what's still inference."
+          </div>
+        </div>
+
+        <!-- variant switcher -->
+        <div class="concept-variants" id="concept-variants">
+          <button class="variant-btn is-active" data-variant="A">
+            <span class="v-letter">A · symmetric</span>
+            <span class="v-name">Central core</span>
+          </button>
+          <button class="variant-btn" data-variant="B">
+            <span class="v-letter">B · asymmetric</span>
+            <span class="v-name">Offset core</span>
+          </button>
+          <button class="variant-btn" data-variant="C">
+            <span class="v-letter">C · distributed</span>
+            <span class="v-name">Three micro-cores</span>
+          </button>
+        </div>
+
+        <!-- rationale strip — changes per variant -->
+        <div class="concept-rationale" id="concept-rationale">
+          <!-- populated by JS -->
+        </div>
+
+        <!-- main grid: massing canvas + side stack -->
+        <div class="concept-grid">
+          <div class="canvas-wrap">
+            <span class="canvas-label" id="concept-canvas-label">massing study · variant A</span>
+            <span class="canvas-meta">grid: 6.0 × 4.5 m · 480 m²</span>
+            <svg class="massing-svg" viewBox="0 0 920 380" xmlns="http://www.w3.org/2000/svg" id="massing-svg">
+              <!-- populated by JS per variant -->
+            </svg>
+          </div>
+
+          <div class="concept-side">
+            <div class="concept-card">
+              <h4>Program breakdown</h4>
+              <div class="program-donut-wrap">
+                <svg class="program-donut" viewBox="0 0 36 36" id="program-donut">
+                  <!-- track + segments rendered by JS -->
+                </svg>
+                <div class="program-legend" id="program-legend">
+                  <!-- rendered by JS -->
+                </div>
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <h4>Comparative metrics</h4>
+              <div class="metrics-row" id="metrics-row">
+                <!-- rendered by JS -->
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <h4>Closest precedents</h4>
+              <div class="precedent-strip" id="precedent-strip">
+                <!-- rendered by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="annotations" id="concept-annotations">
+          <!-- rendered by JS — per-variant annotations -->
+        </div>
+      </div>
+
+      <!-- ============= STAGE 03 — BLUEPRINT (zoomable plan) ============= -->
+      <div class="stage-panel" data-stage="blueprint">
+        <div class="stage-head">
+          <div>
+            <h1>Blueprint</h1>
+            <span class="stage-sub">plan &amp; code review — 1 fail, 2 pass</span>
+          </div>
+          <div class="stage-posture">
+            "I cite the building code on every claim. If I cannot find a source, I will say so explicitly and refuse to assert."
+          </div>
+        </div>
+
+        <div class="zoom-canvas" id="zoom-blueprint" data-pan="blueprint">
+          <span class="zoom-hint">click rooms · ⌘ + scroll to zoom · drag to pan</span>
+          <div class="zoom-target target-plan">
+            <svg class="plan-svg" viewBox="0 0 920 460" xmlns="http://www.w3.org/2000/svg" id="plan-svg" style="max-width: 92%; max-height: 92%;">
+              <!-- envelope (non-clickable) -->
+              <rect class="room envelope" x="80" y="60" width="760" height="340" rx="2"/>
+
+              <!-- clickable served zones (transparent overlays) -->
+              <rect class="plan-room" data-elem-id="event-hall" x="80" y="60" width="300" height="275" />
+              <text class="label" x="240" y="120" pointer-events="none">EVENT HALL</text>
+              <text class="label-sub" x="240" y="134" pointer-events="none">220 m²</text>
+
+              <rect class="plan-room" data-elem-id="foyer" x="540" y="60" width="300" height="275" />
+              <text class="label" x="660" y="120" pointer-events="none">FOYER + GALLERY</text>
+              <text class="label-sub" x="660" y="134" pointer-events="none">180 m²</text>
+
+              <!-- core dividers -->
+              <line x1="380" y1="160" x2="380" y2="320" stroke="#1c1a25" stroke-width="1.6"/>
+              <line x1="540" y1="160" x2="540" y2="320" stroke="#1c1a25" stroke-width="1.6"/>
+              <line x1="380" y1="160" x2="540" y2="160" stroke="#1c1a25" stroke-width="1.6"/>
+              <line x1="380" y1="320" x2="540" y2="320" stroke="#1c1a25" stroke-width="1.6"/>
+
+              <!-- core rooms (clickable) -->
+              <rect class="plan-room is-core" data-elem-id="wc-m" x="380" y="160" width="80" height="60"/>
+              <text class="label" x="420" y="188" pointer-events="none">WC · M</text>
+              <text class="label-sub" x="420" y="202" pointer-events="none">2 stalls</text>
+
+              <rect class="plan-room is-core" data-elem-id="wc-f" x="460" y="160" width="80" height="60"/>
+              <text class="label" x="500" y="188" pointer-events="none">WC · F</text>
+              <text class="label-sub" x="500" y="202" pointer-events="none">3 stalls</text>
+
+              <rect class="plan-room is-core" data-elem-id="tech" x="380" y="220" width="80" height="50"/>
+              <text class="label" x="420" y="245" pointer-events="none">TECH</text>
+
+              <rect class="plan-room is-flag" data-elem-id="storage" x="460" y="220" width="80" height="50"/>
+              <text class="label" x="500" y="245" pointer-events="none">STORAGE</text>
+              <text class="label-sub" x="500" y="258" pointer-events="none">→ convert?</text>
+
+              <rect class="plan-room is-core" data-elem-id="kitchen" x="380" y="270" width="160" height="50"/>
+              <text class="label" x="460" y="298" pointer-events="none">KITCHEN / SERVING</text>
+
+              <!-- corridor (clickable strip along the dashed line) -->
+              <rect class="plan-room is-corridor" data-elem-id="corridor" x="80" y="328" width="760" height="14"/>
+              <text class="dim" x="86" y="354" pointer-events="none">corridor · 1.55 m</text>
+
+              <!-- door swings -->
+              <line class="door" x1="380" y1="190" x2="380" y2="200" pointer-events="none"/>
+              <path class="door-arc" d="M 380 200 A 10 10 0 0 1 390 190" pointer-events="none"/>
+              <line class="door" x1="540" y1="190" x2="540" y2="200" pointer-events="none"/>
+              <path class="door-arc" d="M 540 200 A 10 10 0 0 0 530 190" pointer-events="none"/>
+
+              <!-- dimension witnesses -->
+              <line class="dim-line" x1="80" y1="40" x2="840" y2="40" pointer-events="none"/>
+              <text class="dim" x="450" y="34" text-anchor="middle" pointer-events="none">30.00 m</text>
+              <line class="dim-line" x1="60" y1="60" x2="60" y2="400" pointer-events="none"/>
+              <text class="dim" x="50" y="234" text-anchor="middle" transform="rotate(-90 50 234)" pointer-events="none">16.00 m</text>
+
+              <!-- code-check pins (clickable + draggable) -->
+              <g class="pin" data-pin-id="b1" data-elem-target="corridor" data-x="160" data-y="335"><circle r="14"/><text>✓</text></g>
+              <g class="pin fail" data-pin-id="b2" data-elem-target="storage" data-x="500" data-y="245"><circle r="14"/><text>✗</text></g>
+              <g class="pin" data-pin-id="b3" data-elem-target="foyer" data-x="700" data-y="200"><circle r="14"/><text>✓</text></g>
+            </svg>
+          </div>
+          <div class="zoom-controls">
+            <button class="zoom-btn" data-zoom="out" aria-label="zoom out">−</button>
+            <span class="zoom-readout" data-zoom-readout="blueprint">100%</span>
+            <button class="zoom-btn" data-zoom="in" aria-label="zoom in">+</button>
+            <button class="zoom-btn" data-zoom="reset" aria-label="reset">⟲</button>
+          </div>
+        </div>
+
+        <!-- DYNAMIC INSIGHT PANEL — populated based on selected room/pin -->
+        <div class="bp-insight" id="bp-insight">
+          <!-- rendered from JS -->
+        </div>
+
+        <div class="code-checklist" id="code-checklist">
+          <!-- rendered from JS — global summary, always shown -->
+        </div>
+      </div>
+
+      <!-- ============= STAGE 04 — DETAIL ============= -->
+      <div class="stage-panel" data-stage="detail">
+        <div class="stage-head">
+          <div>
+            <h1>Detail</h1>
+            <span class="stage-sub">wall section &amp; materials — manufacturer-sourced</span>
+          </div>
+          <div class="stage-posture">
+            "I work from manufacturer datasheets and DIN norms. Where I extrapolate beyond a published value, I will mark it."
+          </div>
+        </div>
+
+        <div class="detail-row">
+          <div class="canvas-wrap">
+            <span class="canvas-label">wall section · scale 1:10</span>
+            <span class="canvas-meta">U = 0.18 W/(m²·K)</span>
+            <svg class="section-svg" viewBox="0 0 360 460" xmlns="http://www.w3.org/2000/svg">
+              <g transform="translate(40, 30)">
+                <text x="-8" y="12" font-family="JetBrains Mono" font-size="9" fill="#7a7264">OUT</text>
+                <text x="278" y="12" font-family="JetBrains Mono" font-size="9" fill="#7a7264">IN</text>
+
+                <rect class="layer layer-1" x="0"   y="20" width="20" height="380"/>
+                <rect class="layer layer-2" x="20"  y="20" width="24" height="380"/>
+                <rect class="layer layer-3" x="44"  y="20" width="14" height="380"/>
+                <rect class="layer layer-4" x="58"  y="20" width="120" height="380" fill="url(#hatch)"/>
+                <rect class="layer layer-5" x="178" y="20" width="14" height="380"/>
+                <rect class="layer layer-6" x="192" y="20" width="48" height="380"/>
+                <rect class="layer layer-7" x="240" y="20" width="14" height="380"/>
+
+                <defs>
+                  <pattern id="hatch" patternUnits="userSpaceOnUse" width="8" height="8">
+                    <rect width="8" height="8" fill="#e8e2d0"/>
+                    <path d="M 0 8 L 8 0" stroke="#b8763a" stroke-width="0.6" opacity="0.4"/>
+                  </pattern>
+                </defs>
+
+                <g class="leader"><circle class="leader-dot" cx="10"  cy="60" r="2"/><line x1="10"  y1="60" x2="10"  y2="-8"/></g>
+                <text x="10" y="-12" text-anchor="middle">25 mm larch</text>
+                <g class="leader"><circle class="leader-dot" cx="32"  cy="100" r="2"/><line x1="32"  y1="100" x2="32"  y2="-8"/></g>
+                <text x="32" y="-12" text-anchor="middle">30 cavity</text>
+                <g class="leader"><circle class="leader-dot" cx="51"  cy="140" r="2"/><line x1="51"  y1="140" x2="51"  y2="-8"/></g>
+                <text x="51" y="-12" text-anchor="middle">DWD</text>
+                <g class="leader"><circle class="leader-dot" cx="118" cy="200" r="2"/><line x1="118" y1="200" x2="118" y2="-8"/></g>
+                <text x="118" y="-12" text-anchor="middle" class="label-thick">200 mm Rockwool RP-PT</text>
+                <g class="leader"><circle class="leader-dot" cx="185" cy="280" r="2"/><line x1="185" y1="280" x2="185" y2="420"/></g>
+                <text x="185" y="434" text-anchor="middle">18 OSB</text>
+                <g class="leader"><circle class="leader-dot" cx="216" cy="320" r="2"/><line x1="216" y1="320" x2="216" y2="420"/></g>
+                <text x="216" y="434" text-anchor="middle">60 service void</text>
+                <g class="leader"><circle class="leader-dot" cx="247" cy="360" r="2"/><line x1="247" y1="360" x2="247" y2="420"/></g>
+                <text x="247" y="434" text-anchor="middle">12.5 GKB</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="detail-spec-stack" id="spec-stack">
+            <!-- rendered from JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ============= STAGE 05 — SIMULATION ============= -->
+      <div class="stage-panel" data-stage="simulation">
+        <div class="stage-head">
+          <div>
+            <h1>Simulation</h1>
+            <span class="stage-sub">structural &amp; daylight — preliminary, with confidence bands</span>
+          </div>
+          <div class="stage-posture">
+            "I run preliminary models. Every result has assumptions, a confidence band, and a recommendation to verify with a structural engineer."
+          </div>
+        </div>
+
+        <div class="sim-banner">
+          <span class="sim-banner-icon">!</span>
+          <div class="sim-banner-body">
+            <strong>I am running preliminary simulations.</strong> Boundary conditions, mesh, and load assumptions are documented per result. <em>These are not construction-grade outputs.</em> Verify with your structural and façade engineers before construction.
+          </div>
+        </div>
+
+        <div class="sim-grid">
+          <div class="sim-card">
+            <h3>Structural · beam B-3</h3>
+            <div class="sim-sub">Karamba3D v3.2 · linear-elastic FEA</div>
+
+            <svg class="struct-svg" viewBox="0 0 380 180" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <marker id="load-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b5a3c"/>
+                </marker>
+              </defs>
+              <line class="col" x1="60" y1="80" x2="60" y2="150"/>
+              <line class="col" x1="320" y1="80" x2="320" y2="150"/>
+              <line class="ground" x1="20" y1="150" x2="360" y2="150"/>
+              <line class="beam" x1="60" y1="80" x2="320" y2="80"/>
+              <path class="beam-deflected" d="M 60 80 Q 190 110 320 80"/>
+              <line class="load-arrow" x1="80" y1="40" x2="80" y2="74"/>
+              <line class="load-arrow" x1="120" y1="40" x2="120" y2="74"/>
+              <line class="load-arrow" x1="160" y1="40" x2="160" y2="74"/>
+              <line class="load-arrow" x1="200" y1="40" x2="200" y2="74"/>
+              <line class="load-arrow" x1="240" y1="40" x2="240" y2="74"/>
+              <line class="load-arrow" x1="280" y1="40" x2="280" y2="74"/>
+              <text x="190" y="32" text-anchor="middle">q = 5.0 kN/m</text>
+              <text x="190" y="135" text-anchor="middle" fill="#b8763a">δ = 8.4 mm ± 1.2</text>
+              <text x="60" y="172" text-anchor="middle">L = 6.0 m</text>
+            </svg>
+
+            <div id="sim-struct-results"></div>
+
+            <div class="sim-assumptions">
+              <strong>Assumptions:</strong> pinned column bases · rigid glulam-to-glulam joints · uniform load · linear-elastic small-displacement. Detailed design must revisit semi-rigid joint stiffness from connector specs. → <a class="cite" data-cite="simEngine">model card</a>
+            </div>
+          </div>
+
+          <div class="sim-card">
+            <h3>Daylight · annual</h3>
+            <div class="sim-sub">Climate-Studio · Berlin TMY</div>
+
+            <svg class="daylight-svg" viewBox="0 0 380 180" xmlns="http://www.w3.org/2000/svg">
+              <rect class="room-outline" x="40" y="30" width="300" height="120" rx="2"/>
+              <rect class="heat-1" x="40" y="30" width="300" height="42"/>
+              <rect class="heat-2" x="40" y="72" width="300" height="42"/>
+              <rect class="heat-3" x="40" y="114" width="300" height="36"/>
+              <text x="190" y="22" text-anchor="middle">N ↑ — primary glazing</text>
+              <text x="60" y="58" font-family="JetBrains Mono" font-size="9" fill="#1a1815">sDA: 91%</text>
+              <text x="60" y="100" font-family="JetBrains Mono" font-size="9" fill="#1a1815">sDA: 74%</text>
+              <text x="60" y="138" font-family="JetBrains Mono" font-size="9" fill="#1a1815">sDA: 48% (under-lit)</text>
+            </svg>
+
+            <div id="sim-daylight-results"></div>
+
+            <div class="sim-assumptions">
+              <strong>Assumption:</strong> surrounding terrain shading approximated with single massing block. Detailed terrain pending. → <a class="cite" data-cite="daylight">model card</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================== AI PANEL ========================== -->
+    <aside class="ai-panel" id="ai-panel">
+      <div class="ai-head">
+        <div class="ai-head-top">
+          <div class="role-line">
+            <span class="role-badge" id="role-badge" data-role="brainstormer">brainstormer</span>
+            <span class="role-stakes" id="role-stakes">low stakes</span>
+          </div>
+          <button class="ai-minimize" id="ai-minimize" aria-label="Minimize advisor">−</button>
+        </div>
+        <div class="ai-trust-row" id="ai-trust-row">
+          <div class="ai-trust-line">
+            <span class="atl-label">competence</span>
+            <span class="atl-bar"><span class="atl-fill" id="atl-competence" data-level="low" style="width: 30%"></span></span>
+            <span class="atl-val" id="atlv-competence">peer</span>
+          </div>
+          <div class="ai-trust-line">
+            <span class="atl-label">confidence</span>
+            <span class="atl-bar"><span class="atl-fill" id="atl-confidence" data-level="low" style="width: 30%"></span></span>
+            <span class="atl-val" id="atlv-confidence">low</span>
+          </div>
+          <div class="ai-trust-line">
+            <span class="atl-label">accuracy</span>
+            <span class="atl-bar"><span class="atl-fill" id="atl-accuracy" data-level="low" style="width: 30%"></span></span>
+            <span class="atl-val" id="atlv-accuracy">unsourced</span>
+          </div>
+        </div>
+        <div class="role-posture" id="role-posture">
+          I generate associations freely. Treat this stage as a wide net, not a recommendation.
+        </div>
+      </div>
+
+      <div class="ai-thread" id="ai-thread"></div>
+
+      <div class="ai-composer">
+        <input id="ai-input" placeholder="Ask the assistant…" />
+        <button id="ai-send">Send</button>
+      </div>
+    </aside>
+
+    <!-- ========================== SOURCE PANEL ========================== -->
+    <aside class="source-panel" id="source-panel" aria-hidden="true">
+      <header class="sp-head">
+        <div>
+          <div class="sp-class" id="sp-class" data-class="standard">standard</div>
+          <h2 class="sp-title" id="sp-title">—</h2>
+          <div class="sp-publisher" id="sp-publisher">—</div>
+        </div>
+        <button class="sp-close" id="sp-close" aria-label="Close">×</button>
+      </header>
+      <div class="sp-trust-row" id="sp-trust-row">
+        <!-- confidence ring + accuracy + vote bar inserted here -->
+      </div>
+      <div class="sp-body">
+        <div class="sp-section">
+          <h4>Excerpt</h4>
+          <div class="sp-snippet" id="sp-snippet">—</div>
+        </div>
+        <div class="sp-section">
+          <h4>Body</h4>
+          <div class="sp-body-text" id="sp-body-text">—</div>
+        </div>
+        <div class="sp-section">
+          <h4>Entailment to claim</h4>
+          <div class="sp-entail" id="sp-entail">—</div>
+        </div>
+      </div>
+      <div class="sp-foot">
+        <button id="sp-copy">copy citation</button>
+        <a class="sp-foot-link" id="sp-link" href="#" target="_blank" rel="noopener" style="flex:1;">
+          <button class="primary" style="width:100%;">open original ↗</button>
+        </a>
+      </div>
+    </aside>
+  </main>
+
+  <!-- ========================== CITE POPOVER (small floating card) ========================== -->
+  <div class="cite-popover" id="cite-popover" aria-hidden="true">
+    <div class="cp-class" id="cp-class" data-class="standard">—</div>
+    <h4 class="cp-title" id="cp-title">—</h4>
+    <div class="cp-pub" id="cp-pub">—</div>
+    <div class="cp-snippet" id="cp-snippet">—</div>
+    <div class="cp-foot">
+      <div id="cp-vote-mount"></div>
+      <button class="cp-open-btn" id="cp-open">open full source →</button>
+    </div>
+  </div>
+
+  <!-- ========================== METER CARD (popover) ========================== -->
+  <div class="meter-card" id="meter-card" aria-hidden="true">
+    <h4 id="mc-title">Competence</h4>
+    <div class="meter-sub" id="mc-sub">peer · associative</div>
+    <p id="mc-body">The model's role in this stage. Different stages assign different competence levels — the role badge in the AI panel mirrors this.</p>
+  </div>
+
+  <!-- ========================== AI ORB (minimized advisor) ========================== -->
+  <button class="ai-orb" id="ai-orb" aria-label="Open advisor">
+    <span class="orb-label">advisor · click to expand</span>
+  </button>
+
+  <!-- ========================== TOAST ========================== -->
+  <div class="toast" id="toast"></div>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

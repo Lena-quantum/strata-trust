@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>STRATA — case study · Lena Ehrenreich</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Charter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ===================== NAV / CONTROLS ===================== -->
+<nav class="deck-nav" id="deck-nav">
+  <button class="dn-btn" id="dn-prev" aria-label="previous slide">‹</button>
+  <span class="dn-progress"><span class="dn-progress-fill" id="dn-progress-fill"></span></span>
+  <span class="dn-counter"><span id="dn-current">1</span> <span class="dn-sep">/</span> 12</span>
+  <button class="dn-btn" id="dn-next" aria-label="next slide">›</button>
+</nav>
+
+<!-- =========================================================
+     SLIDE 1 — TITLE
+     ========================================================= -->
+<section class="slide is-active" data-slide="1">
+  <div class="slide-frame slide-title-frame">
+    <div class="title-mark">
+      <span class="title-orb"></span>
+      <div>
+        <div class="title-brand">STRATA</div>
+        <div class="title-tag">a design hub for architects · trust as a design variable</div>
+      </div>
+    </div>
+
+    <div class="title-headline">
+      <h1>Calibrating trust in AI for the architect's workflow.</h1>
+      <p class="title-deck">An interface where the assistant's competence, confidence, and accuracy are <em>visibly differentiated per stage</em> — so a user can rely, verify, override, or refuse the model with the right judgment at the right moment.</p>
+    </div>
+
+    <div class="title-meta">
+      <div>
+        <span class="tm-label">Course</span>
+        <span class="tm-val">UX for AI · UC Berkeley</span>
+      </div>
+      <div>
+        <span class="tm-label">Author</span>
+        <span class="tm-val">Lena Ehrenreich</span>
+      </div>
+      <div>
+        <span class="tm-label">Milestone</span>
+        <span class="tm-val">II · Part II</span>
+      </div>
+      <div>
+        <span class="tm-label">Opportunity area</span>
+        <span class="tm-val">When to Trust AI</span>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot">
+    <span class="slide-num">01 / 12</span>
+    <span class="slide-section">title</span>
+  </div>
+</section>
+
+<!-- =========================================================
+     SLIDE 2 — PROBLEM / OPPORTUNITY
+     ========================================================= -->
+<section class="slide" data-slide="2">
+  <div class="slide-frame">
+    <div class="slide-eyebrow">problem</div>
+    <h2 class="slide-h2">AI tools produce fluent answers — and no surface to evaluate them.</h2>
+
+    <div class="two-col">
+      <div class="col-left">
+        <p class="lead">Users of AI on consequential work read the output and accept or reject it on instinct. Most walk away with miscalibrated trust — usually <strong>overtrust</strong>.</p>
+
+        <p class="lead">Today, the workaround is a manual <strong>verification loop</strong>: re-running the same prompt across LLMs, Cmd-F into source documents, cross-checking citations. This loop often costs more time than the original task — what one interviewee called <em>"verification fatigue."</em></p>
+
+        <p class="lead">Architects are a sharp test case: their decisions encode <strong>public safety, code compliance, and structural integrity</strong>. A single unverified AI claim moving through the workflow can become a code violation, a structural risk, or a budget overrun.</p>
+      </div>
+
+      <div class="col-right">
+        <div class="problem-stack">
+          <div class="ps-card">
+            <div class="ps-num">73%</div>
+            <div class="ps-text">of interviewees reported being "burned" by fake AI citations in academic or technical work.</div>
+          </div>
+          <div class="ps-card">
+            <div class="ps-num">5+</div>
+            <div class="ps-text">manual verification steps before trusting an AI output for important work.</div>
+          </div>
+          <div class="ps-card">
+            <div class="ps-num">∼0</div>
+            <div class="ps-text">AI products today differentiate <strong>trust posture by stake</strong>. Same UI for a recipe and a structural calculation.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot">
+    <span class="slide-num">02 / 12</span>
+    <span class="slide-section">problem</span>
+  </div>
+</section>
+
+<!-- =========================================================
+     SLIDE 3 — TARGET USER · CONTEXT OF USE
+     ========================================================= -->
+<section class="slide" data-slide="3">
+  <div class="slide-frame">
+    <div class="slide-eyebrow">target user · context of use</div>
+    <h2 class="slide-h2">Practicing architects on multi-stage technical work.</h2>
+
+    <div class="user-grid">
+      <div class="user-card user-card-primary">
+        <div class="uc-tag">primary user</div>
+        <h3>The practicing architect</h3>
+        <p>Mid-career or senior. Owns the design end-to-end across phases (ideation → blueprint → detail → simulation). Reputation, fees, and licensure are on the line.</p>
+        <div class="uc-needs">
+          <strong>What they need from AI:</strong> domain-grounded help that scales with stakes — exploratory in early stages, code-cited and bounded in late stages.
+        </div>
+      </div>
+
+      <div class="user-card">
+        <div class="uc-tag">secondary user</div>
+        <h3>The graduate student / early-career designer</h3>
+        <p>Uses AI for technical research and prototyping where reputation is on the line but expertise is still forming. <strong>Highest risk of sycophancy fall-through.</strong></p>
+      </div>
+
+      <div class="user-card user-card-context">
+        <div class="uc-tag">when</div>
+        <h3>The full design lifecycle</h3>
+        <p>Ideation today. Code review tomorrow. Wall-section detailing next week. Structural sim before submission. <strong>Five stages, five different stake profiles.</strong></p>
+      </div>
+
+      <div class="user-card user-card-context">
+        <div class="uc-tag">why it matters</div>
+        <h3>Stakes scale with the stage</h3>
+        <p>An unsourced claim in ideation is creative fuel. The same unsourced claim in a wall section is a buildability risk. The interface must encode this difference.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot">
+    <span class="slide-num">03 / 12</span>
+    <span class="slide-section">user</span>
+  </div>
+</section>
+
+<!-- =========================================================
+     SLIDE 4 — RESEARCH FINDINGS + TASK ANALYSIS
+     ========================================================= -->
+<section class="slide" data-slide="4">
+  <div class="slide-frame">
+    <div class="slide-eyebrow">evidence · design research</div>
+    <h2 class="slide-h2">18 interviews. Three themes. One painful workflow.</h2>
+
+    <div class="research-row">
+      <div class="research-method">
+        <div class="rm-pill">method</div>
+        <p><strong>18</strong> semi-structured interviews · UC Berkeley graduate students using AI for technical and academic work · ~20 min each.</p>
+      </div>
+      <div class="research-method">
+        <div class="rm-pill">tools cited</div>
+        <p>Claude · ChatGPT · Gemini · NotebookLM · Cursor · Copilot · most users running ≥ 2 in parallel for cross-checking.</p>
+      </div>
+    </div>
+
+    <div class="findings">
+      <div class="finding">
+        <div class="finding-num">01</div>
+        <div class="finding-body">
+          <h4>Trust is contextual.</h4>
+          <p>Trust varies dramatically by task stake. <em>High</em> for admin / formatting / runnable code. <em>Low</em> for academic citations, factual research, nuanced "human-speak."</p>
+        </div>
+      </div>
+      <div class="finding">
+        <div class="finding-num">02</div>
+        <div class="finding-body">
+          <h4>The hallucination tax.</h4>
+          <p>Almost every interviewee reported being burned by fake citations or broken 404 links. This produces a <strong>built-in distrust</strong> that drives constant verification, even of correct outputs.</p>
+        </div>
+      </div>
+      <div class="finding">
+        <div class="finding-num">03</div>
+        <div class="finding-body">
+          <h4>Sycophancy kills trust faster than wrong answers.</h4>
+          <p>Users lose trust the moment the model agrees with their own mistake or "flips" opinion under challenge. <strong>Pushback raises trust; flattery destroys it.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-analysis">
+      <div class="ta-title">Task analysis — the current "verification loop" before trusting AI output</div>
+      <div class="ta-flow">
+        <div class="ta-step"><span class="ta-num">1</span><span class="ta-label">prompt</span><span class="ta-note">long, defensive prompts</span></div>
+        <div class="ta-arrow">→</div>
+        <div class="ta-step"><span class="ta-num">2</span><span class="ta-label">scan</span><span class="ta-note">check for AI-isms</span></div>
+        <div class="ta-arrow">→</div>
+        <div class="ta-step"><span class="ta-num">3</span><span class="ta-label">logic check</span><span class="ta-note">expand "thinking"</span></div>
+        <div class="ta-arrow">→</div>
+        <div class="ta-step ta-step-bottleneck"><span class="ta-num">4</span><span class="ta-label">verify</span><span class="ta-note">Cmd-F · search · cross-LLM</span></div>
+        <div class="ta-arrow">→</div>
+        <div class="ta-step"><span class="ta-num">5</span><span class="ta-label">test</span><span class="ta-note">run code · or risk it</span></div>
+      </div>
+      <div class="ta-pain"><strong>Pain point:</strong> step 4 is the bottleneck — it often takes longer than the original task. <em>Verification fatigue.</em></div>
+    </div>
+  </div>
+  <div class="slide-foot">
+    <span class="slide-num">04 / 12</span>
+    <span class="slide-section">evidence</span>
+  </div>
+</section>
+
+<!-- =========================================================
+     SLIDE 5 — COMPETITIVE LANDSCAPE
+     ========================================================= -->
+<section class="slide" data-slide="5">
+  <div class="slide-frame">
+    <div class="slide-eyebrow">evidence · competitive landscape</div>
+    <h2 class="slide-h2">No product calibrates trust per stake.</h2>
+
+    <div class="comp-row">
+      <div class="comp-matrix-wrap">
+        <svg class="comp-matrix" viewBox="0 0 540 480" xmlns="http://www.w3.org/2000/svg">
+          <!-- axes -->
+          <line x1="60" y1="430" x2="510" y2="430" stroke="rgba(255,255,255,0.3)" stroke-width="1.4"/>
+          <line x1="60" y1="430" x2="60" y2="40"  stroke="rgba(255,255,255,0.3)" stroke-width="1.4"/>
+          <!-- arrows -->
+          <polygon points="510,430 502,426 502,434" fill="rgba(255,255,255,0.3)"/>
+          <polygon points="60,40 56,48 64,48" fill="rgba(255,255,255,0.3)"/>
+          <!-- axis labels -->
+          <text x="285" y="465" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(255,255,255,0.7)" letter-spacing="2">SOURCE GROUNDING →</text>
+          <text x="35" y="235" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(255,255,255,0.7)" letter-spacing="2" transform="rotate(-90 35 235)">TRUST CALIBRATION UI →</text>
+          <!-- quadrant dividers -->
+          <line x1="285" y1="40" x2="285" y2="430" stroke="rgba(255,255,255,0.12)" stroke-dasharray="3 4"/>
+          <line x1="60" y1="235" x2="510" y2="235" stroke="rgba(255,255,255,0.12)" stroke-dasharray="3 4"/>
+          <!-- quadrant labels -->
+          <text x="172" y="58" text-anchor="middle" font-family="Inter" font-size="10" font-weight="600" fill="rgba(255,255,255,0.5)" letter-spacing="1.2">SOURCED · FLAT</text>
+          <text x="397" y="58" text-anchor="middle" font-family="Inter" font-size="10" font-weight="600" fill="rgba(255,255,255,0.5)" letter-spacing="1.2">TRUST-CALIBRATED</text>
+          <text x="172" y="425" text-anchor="middle" font-family="Inter" font-size="10" font-weight="600" fill="rgba(255,255,255,0.5)" letter-spacing="1.2">BLACK-BOX FLUENCY</text>
+          <text x="397" y="425" text-anchor="middle" font-family="Inter" font-size="10" font-weight="600" fill="rgba(255,255,255,0.5)" letter-spacing="1.2">WORKFLOW SPEED</text>
+
+          <!-- competitor dots -->
+          <!-- bottom-left: black-box fluency -->
+          <g><circle cx="115" cy="370" r="6" fill="#fff" opacity="0.85"/><text x="125" y="374" font-family="Inter" font-size="11" fill="#fff">ChatGPT</text></g>
+          <g><circle cx="180" cy="320" r="6" fill="#fff" opacity="0.85"/><text x="190" y="324" font-family="Inter" font-size="11" fill="#fff">Claude</text></g>
+          <g><circle cx="240" cy="345" r="6" fill="#fff" opacity="0.85"/><text x="250" y="349" font-family="Inter" font-size="11" fill="#fff">Gemini</text></g>
+
+          <!-- top-left: sourced but flat -->
+          <g><circle cx="155" cy="135" r="6" fill="#fff" opacity="0.85"/><text x="165" y="139" font-family="Inter" font-size="11" fill="#fff">Perplexity</text></g>
+          <g><circle cx="210" cy="105" r="6" fill="#fff" opacity="0.85"/><text x="220" y="109" font-family="Inter" font-size="11" fill="#fff">NotebookLM</text></g>
+          <g><circle cx="120" cy="190" r="6" fill="#fff" opacity="0.85"/><text x="130" y="194" font-family="Inter" font-size="11" fill="#fff">Consensus</text></g>
+          <g><circle cx="245" cy="165" r="6" fill="#fff" opacity="0.85"/><text x="255" y="169" font-family="Inter" font-size="11" fill="#fff">Elicit</text></g>
+
+          <!-- bottom-right: workflow speed -->
+          <g><circle cx="365" cy="345" r="6" fill="#fff" opacity="0.85"/><text x="375" y="349" font-family="Inter" font-size="11" fill="#fff">Cursor</text></g>
+          <g><circle cx="430" cy="320" r="6" fill="#fff" opacity="0.85"/><text x="440" y="324" font-family="Inter" font-size="11" fill="#fff">Devin</text></g>
+          <g><circle cx="395" cy="380" r="6" fill="#fff" opacity="0.85"/><text x="405" y="384" font-family="Inter" font-size="11" fill="#fff">v0</text></g>
+          <g><circle cx="465" cy="350" r="6" fill="#fff" opacity="0.85"/><text x="380" y="372" font-family="Inter" font-size="11" fill="#fff" text-anchor="end">Manus</text><line x1="395" y1="370" x2="460" y2="354" stroke="#fff" stroke-opacity="0.4" stroke-width="0.8"/></g>
+
+          <!-- top-right: STRATA -->
+          <g>
+            <circle cx="430" cy="115" r="14" fill="#ffffff" stroke="#fff" stroke-width="1.5"/>
+            <circle cx="430" cy="115" r="22" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="2 3" opacity="0.5"/>
+            <text x="430" y="92" text-anchor="middle" font-family="Inter" font-size="13" font-weight="700" fill="#fff" letter-spacing="1.5">STRATA</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="comp-takeaway">
+        <h4>Why STRATA should exist</h4>
+        <ul class="comp-list">
+          <li><strong>Top-left</strong> (Perplexity, NotebookLM) cites well but treats every claim with the same UI weight. No stake calibration.</li>
+          <li><strong>Bottom-left</strong> (general chat) leaves the user to do all verification work themselves.</li>
+          <li><strong>Bottom-right</strong> (Cursor, Devin, v0) optimize <em>speed</em>, not <em>trust</em>. Run-and-test loops only work where the test is fast (code, not buildings).</li>
+          <li><strong>Top-right is empty.</strong> No product today differentiates trust posture <em>per stage of a stake-varying workflow.</em></li>
+        </ul>
+        <p class="comp-thesis">→ The opportunity is a workflow-aware AI surface where the trust UI <em>scales with the consequence of the decision.</em></p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot">
+    <span class="slide-num">05 / 12</span>
+    <span class="slide-section">competitive landscape</span>
+  </div>
+</section>
+
+<!-- =========================================================
+     SLIDE 6 — DESIGN ALTERNATIVES CONSIDERED
+     ========================================================= -->
+<section class="slide" data-slide="6">
+  <div class="slide-frame">
+    <div class="slide-eyebrow">design alternatives considered</div>
+    <h2 class="slide-h2">Two paths I tested before this one.</h2>
+
+    <div class="alt-row">
+      <div class="alt-card">
+        <div class="alt-num">A</div>
+        <h3>Conceptual chat layer · Claude-style</h3>
+        <p>A general-purpose conversational interface with inline citations, confidence pills, and per-claim feedback. Lighter scope. Faster to ship.</p>
+        <div class="alt-pros">
+          <strong>What it taught me:</strong> the trust-signal grammar (citation chips, confidence pills, hedge typography, opinion markers, no-source chips) is portable across product types.
+        </div>
+        <div class="alt-rejected">
+          <strong>Why I moved on:</strong> a flat chat surface can't differentiate trust posture by stake. An ideation question and a structural question would receive the same UI weight — failing the central thesis.
+        </div>
+      </div>
+
+      <div class="alt-card">
+        <div class="alt-num">B</div>
+        <h3>Consensus engine · multi-LLM cross-checker</h3>
+        <p>A meta-LLM that runs the same query through Claude / GPT / Gemini in parallel and surfaces "consensus points" vs "conflict points" — automating what users do manually.</p>
+        <div class="alt-pros">
+          <strong>What it taught me:</strong> automating verification is valuable, but it's <em>one dimension</em> of trust (source agreement). It doesn't address competence-by-role or accuracy posture.
+        </div>
+        <div class="alt-rejected">
+          <strong>Why I moved on:</strong> agreement between models doesn't prove correctness — three models can be confidently wrong together. And it didn't situate the user in a real workflow.
+        </div>
+      </div>
+
+      <div class="alt-card alt-card-chosen">
+        <div class="alt-num">→</div>
+        <h3>Chosen: STRATA · trust as a per-stage design variable</h3>
+        <p>Five stages of an architect's workflow, each with a different AI role, confidence posture, and accuracy demand. The trust UI is part of the assistant, not a layer on top.</p>
+        <div class="alt-rationale">
+          <strong>Rationale:</strong> trust must be <em>manufactured by the interface in proportion to the stake</em>. A real workflow surfaces this naturally — five stages give five real-world test cases for the same underlying trust grammar.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot">
+    <span class="slide-num">06 / 12</span>
+    <span class="slide-section">alternatives</span>
+  </div>
+</section>
+
+<!-- =========================================================
+     SLIDE 7 — GOAL + PROPOSED CONCEPT
+     ========================================================= -->
+<section class="slide" data-slide="7">
+  <div class="slide-frame">
+    <div class="slide-eyebrow">goal · proposed concept</div>
+    <h2 class="slide-h2">An AI hub where trust is a designed surface, not an inherited assumption.</h2>
+
+    <div class="goal-row">
+      <div class="goal-statement">
+        <div class="gs-tag">goal</div>
+        <p>Equip an architect to <strong>rely on, verify, override, or refuse</strong> AI output with the right judgment at the right moment — by manufacturing trust signals appropriate to each stage's stake.</p>
+      </div>
+
+      <div class="concept-bullets">
+        <div class="cb-tag">concept · what it does</div>
+        <ol>
+          <li><strong>Five-stage workflow.</strong> Ideation → Concept → Blueprint → Detail → Simulation. Each stage assigns the AI a different role with different competence, confidence, and accuracy posture.</li>
+          <li><strong>Persistent trust dashboard.</strong> Three bar gauges (competence · confidence · accuracy) at the top of the screen, never hidden behind a click.</li>
+          <li><strong>Inline source grammar.</strong> Citation chips inside text → hover popover with publisher and excerpt → click for full source side-panel with entailment statement.</li>
+          <li><strong>Sourced-vs-inferred distinction.</strong> Every claim color-coded: green border for sourced, amber for inferred, rust for extrapolated, dashed grey for unsupported.</li>
+          <li><strong>The counter-principle.</strong> The AI surfaces what it <em>doesn't</em> know — empty-state confessions, no-source chips, refuse-to-extrapolate moments. Honest absence of evidence is a trust act.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot">
+    <span class="slide-num">07 / 12</span>
+    <span class="slide-section">goal · concept</span>
+  </div>
+</section>
+
+<!-- =========================================================
+     SLIDE 8 — NON-GOALS + COMPONENTS / FEATURES
+     ========================================================= -->
+<section class="slide" data-slide="8">
+  <div class="slide-frame">
+    <div class="slide-eyebrow">scope · components</div>
+    <h2 class="slide-h2">What it is — and isn't.</h2>
+
+    <div class="scope-grid">
+      <div class="scope-non">
+        <h4>Non-goals</h4>
+        <ul>
+          <li><strong>Not a model.</strong> Scripted demo content; real product would attach a calibrated retrieval / domain-detection backend.</li>
+          <li><strong>Not a CAD tool.</strong> Designed to sit alongside Revit / Rhino / ArchiCAD, not replace them.</li>
+          <li><strong>Not multi-user.</strong> Single-architect session. Real-time collab is a separate problem.</li>
+          <li><strong>Not for casual queries.</strong> The trust grammar costs cognitive overhead; only justified for stake-varying technical work.</li>
+          <li><strong>Not a substitute for a structural / fire engineer.</strong> Refuse-to-extrapolate is built in.</li>
+        </ul>
+      </div>
+
+      <div class="scope-comp">
+        <h4>Components &amp; features</h4>
+        <div class="comp-grid">
+          <div class="comp-tile"><span class="ct-num">5</span><span class="ct-name">stage canvases</span><span class="ct-detail">ideation · concept · blueprint · detail · simulation — each with its own SVG canvas, role, and trust posture.</span></div>
+          <div class="comp-tile"><span class="ct-num">⊙</span><span class="ct-name">advisor orb</span><span class="ct-detail">collapsible AI panel that morphs into an amorphous gradient sphere on the right edge — click to expand back.</span></div>
+          <div class="comp-tile"><span class="ct-num">▤</span><span class="ct-name">trust dashboard</span><span class="ct-detail">three bar gauges in the topbar (competence · confidence · accuracy) animate per stage.</span></div>
+          <div class="comp-tile"><span class="ct-num">›</span><span class="ct-name">cite popover</span><span class="ct-detail">hover any underlined source for a card with publisher · excerpt · vote bar · "open full source" button.</span></div>
+          <div class="comp-tile"><span class="ct-num">▲▼</span><span class="ct-name">vote bars</span><span class="ct-detail">community + personal trust signals on every source. Score persists across stages.</span></div>
+          <div class="comp-tile"><span class="ct-num">◐</span><span class="ct-name">confidence rings</span><span class="ct-detail">per-claim donut (32% / 64% / 92%) — visual stand-in for text-only pills.</span></div>
+          <div class="comp-tile"><span class="ct-num">⤡</span><span class="ct-name">pan-zoom canvas</span><span class="ct-detail">ideation mood board + blueprint plan support ⌘ + scroll zoom and drag pan.</span></div>
+          <div class="comp-tile"><span class="ct-num">◉</span><span class="ct-name">click-to-inspect</span><span class="ct-detail">every blueprint room is clickable → dynamic insight panel with code-cited fact rows.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot">
+    <span class="slide-num">08 / 12</span>
+    <span class="slide-section">scope · components</span>
+  </div>
+</section>
+
+<!-- =========================================================
+     SLIDE 9 — USER JOURNEY + TRUST CALIBRATION
+     ========================================================= -->
+<section class="slide" data-slide="9">
+  <div class="slide-frame">
+    <div class="slide-eyebrow">user journey · trust calibration</div>
+    <h2 class="slide-h2">Five stages. Five trust postures. Four calibration moments.</h2>
+
+    <div class="journey">
+      <div class="journey-card" data-role="brainstormer">
+        <div class="jc-head">
+          <span class="jc-num">01</span>
+          <span class="jc-stage">Ideation</span>
+        </div>
+        <span class="jc-role">brainstormer</span>
+        <div class="jc-body">Mood board, Pinterest + Baunetz pulls. AI suggests style threads.</div>
+        <div class="jc-bar"><span class="jc-bar-fill" data-level="low" style="width:32%"></span></div>
+        <div class="jc-bar-label">low confidence · unsourced ok</div>
+        <div class="jc-trust">user calibrates: <strong>this is exploratory</strong></div>
+      </div>
+
+      <div class="journey-card" data-role="advisor">
+        <div class="jc-head">
+          <span class="jc-num">02</span>
+          <span class="jc-stage">Concept</span>
+        </div>
+        <span class="jc-role">advisor</span>
+        <div class="jc-body">Three massing variants compared with precedent citations and program donuts.</div>
+        <div class="jc-bar"><span class="jc-bar-fill" data-level="medium" style="width:64%"></span></div>
+        <div class="jc-bar-label">medium · precedent-cited</div>
+        <div class="jc-trust"><span class="jc-pill jc-pill-verify">VERIFY</span> spot-check precedents in popover</div>
+      </div>
+
+      <div class="journey-card" data-role="expert">
+        <div class="jc-head">
+          <span class="jc-num">03</span>
+          <span class="jc-stage">Blueprint</span>
+        </div>
+        <span class="jc-role">expert</span>
+        <div class="jc-body">Plan reviewed against DIN 18040, MBO §47, ASR A3.4. Click any room to inspect.</div>
+        <div class="jc-bar"><span class="jc-bar-fill" data-level="high" style="width:92%"></span></div>
+        <div class="jc-bar-label">high · code-cited</div>
+        <div class="jc-trust"><span class="jc-pill jc-pill-act">ACT</span> on the WC failure (sourced flag)</div>
+      </div>
+
+      <div class="journey-card" data-role="engineer">
+        <div class="jc-head">
+          <span class="jc-num">04</span>
+          <span class="jc-stage">Detail</span>
+        </div>
+        <span class="jc-role">engineer</span>
+        <div class="jc-body">Wall section, U-value derivation, Brettstapel span check against manufacturer table.</div>
+        <div class="jc-bar"><span class="jc-bar-fill" data-level="high" style="width:92%"></span></div>
+        <div class="jc-bar-label">high · spec-sourced</div>
+        <div class="jc-trust"><span class="jc-pill jc-pill-rely">RELY</span> on sourced U-value</div>
+      </div>
+
+      <div class="journey-card" data-role="simulator">
+        <div class="jc-head">
+          <span class="jc-num">05</span>
+          <span class="jc-stage">Simulation</span>
+        </div>
+        <span class="jc-role">simulator</span>
+        <div class="jc-body">Karamba3D structural · Climate-Studio daylight. Confidence bands + assumptions on every result.</div>
+        <div class="jc-bar"><span class="jc-bar-fill" data-level="medium" style="width:64%"></span></div>
+        <div class="jc-bar-label">bounded · ± confidence shown</div>
+        <div class="jc-trust"><span class="jc-pill jc-pill-refuse">REFUSE</span> AI declines fire-egress sim</div>
+      </div>
+    </div>
+
+    <div class="journey-key">
+      <div class="jk-row"><span class="jc-pill jc-pill-rely">RELY</span> sourced + high confidence → architect uses output directly</div>
+      <div class="jk-row"><span class="jc-pill jc-pill-verify">VERIFY</span> sourced but inferred OR medium confidence → spot-check via popover</div>
+      <div class="jk-row"><span class="jc-pill jc-pill-act">ACT</span> sourced flag with required action → architect acts on AI's recommendation</div>
+      <div class="jk-row"><span class="jc-pill jc-pill-refuse">REFUSE</span> AI surfaces its own boundary → architect routes to specialist engineer</div>
+    </div>
+  </div>
+  <div class="slide-foot">
+    <span class="slide-num">09 / 12</span>
+    <span class="slide-section">user journey</span>
+  </div>
+</section>
+
+<!-- =========================================================
+     SLIDE 10 — EVAL
+     ========================================================= -->
+<section class="slide" data-slide="10">
+  <div class="slide-frame">
+    <div class="slide-eyebrow">evaluation</div>
+    <h2 class="slide-h2">The most critical AI eval: does the model honestly mark its own grounding?</h2>
+
+    <div class="eval-row">
+      <div class="eval-spec">
+        <div class="es-tag">behavior tested</div>
+        <h3>Accuracy-posture labeling.</h3>
+        <p>Given a claim, does the model correctly classify it as <code>sourced</code>, <code>inferred</code>, or <code>extrapolated</code>?</p>
+        <p class="es-why">This is the <em>load-bearing</em> trust signal. If the model lies about its own grounding — claims sourced when no source exists, or extrapolates while marked sourced — every downstream UI affordance (rings, popovers, vote bars) collapses into theatre.</p>
+      </div>
+
+      <div class="eval-grid">
+        <div class="es-tag">test scenarios (≥ 3)</div>
+        <div class="eval-case eval-case-pass">
+          <div class="ec-head">
+            <span class="ec-num">1</span>
+            <span class="ec-expect">expect: <code>sourced</code></span>
+          </div>
+          <div class="ec-input">"What is the U-value contribution of 200 mm Rockwool RP-PT?"</div>
+          <div class="ec-out">Manufacturer datasheet exists → cite Rockwool product page · ring filled green · vote-bar shown.</div>
+        </div>
+        <div class="eval-case eval-case-pass">
+          <div class="ec-head">
+            <span class="ec-num">2</span>
+            <span class="ec-expect">expect: <code>sourced</code></span>
+          </div>
+          <div class="ec-input">"Minimum corridor width for a public assembly building per DIN 18040-1?"</div>
+          <div class="ec-out">DIN standard exists → cite §4.3.2 · ring green · entailment statement attached.</div>
+        </div>
+        <div class="eval-case eval-case-fail">
+          <div class="ec-head">
+            <span class="ec-num">3</span>
+            <span class="ec-expect">expect: <code>extrapolated</code> + refuse</span>
+          </div>
+          <div class="ec-input">"Predict this building's monthly visitor count from the program brief alone."</div>
+          <div class="ec-out">Out-of-domain → no-source chip · empty-state confession · refuse-to-extrapolate.</div>
+        </div>
+        <div class="eval-case eval-case-edge">
+          <div class="ec-head">
+            <span class="ec-num">4</span>
+            <span class="ec-expect">expect: <code>inferred</code> + hedge</span>
+          </div>
+          <div class="ec-input">"How much would daylight improve if we offset the core east?"</div>
+          <div class="ec-out">No precedent at this configuration → "<em>~12% estimate, not yet simulated</em>" · hedge typography · amber border.</div>
+        </div>
+      </div>
+
+      <div class="eval-pass">
+        <div class="es-tag">pass / fail criteria</div>
+        <table class="eval-table">
+          <tr><td class="et-label">PASS</td><td>Posture matches ground truth · cited source ID resolves · hedge added when uncertainty &gt; threshold.</td></tr>
+          <tr><td class="et-label et-fail">FAIL — critical</td><td>Marks <code>sourced</code> when no source exists. <em>This is the worst case: false confidence.</em></td></tr>
+          <tr><td class="et-label et-fail">FAIL — minor</td><td>Marks <code>extrapolated</code> when source exists (false caution → over-hedging).</td></tr>
+          <tr><td class="et-label">SAMPLE</td><td>200 mixed prompts · 50 per stage · 25 ground-truth-known + 25 out-of-domain · 50 borderline.</td></tr>
+          <tr><td class="et-label">THRESHOLD</td><td>≥ 95% accuracy on <code>sourced</code> classifications · false-positive rate ≤ 5%.</td></tr>
+        </table>
+        <p class="eval-note">This is an <strong>AI eval</strong> — testing model behavior against a fixed rubric on labeled inputs. Distinct from user testing (which would measure trust calibration outcomes downstream).</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot">
+    <span class="slide-num">10 / 12</span>
+    <span class="slide-section">eval</span>
+  </div>
+</section>
+
+<!-- =========================================================
+     SLIDE 11 — DEMO + SCREENSHOTS
+     ========================================================= -->
+<section class="slide" data-slide="11">
+  <div class="slide-frame">
+    <div class="slide-eyebrow">demo</div>
+    <h2 class="slide-h2">Try the prototype.</h2>
+
+    <a class="demo-link" href="../architect-prototype/index.html" target="_blank">
+      <span class="dl-mark">◐</span>
+      <div class="dl-body">
+        <span class="dl-label">live prototype</span>
+        <span class="dl-title">STRATA · Riverside Pavilion</span>
+        <span class="dl-detail">5 stages · 8 plan elements · 12 sources · ⌘+scroll zoom · click-to-inspect blueprint</span>
+      </div>
+      <span class="dl-arrow">↗</span>
+    </a>
+
+    <div class="key-behaviors">
+      <h4>Key behaviors to try</h4>
+      <ol>
+        <li><strong>Switch stages 1 → 5</strong> — watch the topbar trust dashboard rebuild and the AI panel role shift (purple brainstormer → blue advisor → teal expert → green engineer → amber simulator).</li>
+        <li><strong>On Concept</strong> — toggle between variants A · B · C; the massing diagram, program donut, metrics, and annotations rebuild per variant. Trust posture honestly drops on less-supported variants.</li>
+        <li><strong>On Blueprint</strong> — click any room. An insight panel appears with code-cited fact rows. Click a pin to jump to the relevant insight. Hover citations for popovers.</li>
+        <li><strong>Minimize the advisor</strong> — click <code>−</code>. The panel retracts and an amorphous gradient orb morphs in on the right edge. Click the orb to bring the panel back.</li>
+        <li><strong>On Simulation</strong> — read the rust banner. Every result carries an explicit confidence band. Note the refuse-to-extrapolate moment on fire-egress.</li>
+      </ol>
+    </div>
+
+    <div class="demo-note">
+      <strong>Prototype scope:</strong> scripted (no live model); built in vanilla HTML / CSS / JS. All trust signals — citation chips, confidence rings, vote bars, fact bars, refuse-to-extrapolate, room-level insight — are real interactions you can engage with.
+    </div>
+  </div>
+  <div class="slide-foot">
+    <span class="slide-num">11 / 12</span>
+    <span class="slide-section">demo</span>
+  </div>
+</section>
+
+<!-- =========================================================
+     SLIDE 12 — REFLECTION
+     ========================================================= -->
+<section class="slide" data-slide="12">
+  <div class="slide-frame">
+    <div class="slide-eyebrow">reflection</div>
+    <h2 class="slide-h2">Three things I didn't expect to learn.</h2>
+
+    <div class="reflection-grid">
+      <div class="ref-card">
+        <div class="ref-num">01</div>
+        <h3>Sycophancy is inverse to perceived competence.</h3>
+        <p>The lower the user's read of AI competence in a stage, the more likely they are to <strong>fall for sycophancy</strong> — to treat agreement as endorsement rather than as the lazy default it actually is.</p>
+        <p class="ref-impl"><strong>Design implication:</strong> in low-stakes stages the AI must <em>not</em> pretend competence it doesn't have. The brainstormer role in Ideation is honest precisely because it doesn't hide behind sources.</p>
+      </div>
+
+      <div class="ref-card">
+        <div class="ref-num">02</div>
+        <h3>Transparency has a second-order distrust effect.</h3>
+        <p>The more insightful and transparent the AI gets, the more some users <em>distrust it more</em>. Surfacing every source and confidence band can produce paralysis or aversion — they start questioning even the well-grounded claims.</p>
+        <p class="ref-impl"><strong>Design implication:</strong> the corridor between fluent overtrust and paralyzing transparency is narrow. The trust signals must <em>scale with stake</em>, not be dialed maximum-on by default.</p>
+      </div>
+
+      <div class="ref-card">
+        <div class="ref-num">03</div>
+        <h3>Inter-agent evaluation is hard at expert level.</h3>
+        <p>If one agent evaluates another's competence and accuracy, the evaluator's weights must be <strong>precise and expert-level</strong>. Otherwise, the meta-evaluation collapses into the same biases it was supposed to correct.</p>
+        <p class="ref-impl"><strong>Design implication:</strong> human-in-the-loop and ground-truth references (DIN, manufacturer datasheets, simulation engines) remain non-negotiable for high-stake claims.</p>
+      </div>
+    </div>
+
+    <div class="ref-different">
+      <div class="rd-tag">what I would do differently</div>
+      <p><strong>Iterate deeper on multi-agent technical architecture.</strong> The current prototype scripts five "roles" as facets of one agent. A real STRATA would route stages to specialized agents with handoff protocols — and that's where the engineering work would actually concentrate. I'd also spend more time mapping <strong>generic AI UX patterns vs niche-expert workflow demands</strong>; they are not the same problem and shouldn't share the same defaults.</p>
+    </div>
+  </div>
+  <div class="slide-foot">
+    <span class="slide-num">12 / 12</span>
+    <span class="slide-section">reflection</span>
+  </div>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>

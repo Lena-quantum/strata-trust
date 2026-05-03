@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>STRATA — case study + prototype · Lena Ehrenreich</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Charter&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --grad-1:#ff8b6b; --grad-2:#f5a98c; --grad-3:#b89cc9; --grad-4:#6b8acf; --grad-5:#3858bd;
+      --ink:#1c1a25; --ink-2:#3a3645; --muted:#6e6878;
+      --ink-on-grad:rgba(255,255,255,0.96); --ink-on-grad-2:rgba(255,255,255,0.74); --ink-on-grad-3:rgba(255,255,255,0.5);
+      --rule:rgba(255,255,255,0.18); --rule-strong:rgba(255,255,255,0.32);
+      --glass:rgba(255,255,255,0.78);
+      --shadow:0 1px 0 rgba(255,255,255,0.5) inset, 0 24px 60px rgba(40,20,60,0.22), 0 2px 6px rgba(40,20,60,0.08);
+      --serif:"Charter","Iowan Old Style",Georgia,ui-serif,serif;
+      --sans:"Inter",-apple-system,system-ui,sans-serif;
+      --mono:"JetBrains Mono","SF Mono",ui-monospace,monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; min-height: 100vh; }
+    body {
+      font-family: var(--sans);
+      color: var(--ink-on-grad);
+      background:
+        radial-gradient(circle at 12% 8%,  var(--grad-1) 0%, transparent 40%),
+        radial-gradient(circle at 92% 18%, var(--grad-2) 0%, transparent 44%),
+        radial-gradient(circle at 78% 90%, var(--grad-5) 0%, transparent 50%),
+        radial-gradient(circle at 22% 88%, var(--grad-4) 0%, transparent 46%),
+        linear-gradient(135deg, var(--grad-1) 0%, var(--grad-3) 48%, var(--grad-5) 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      opacity: 0.55; mix-blend-mode: overlay;
+    }
+
+    .wrap {
+      position: relative; z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 32px 80px;
+      display: flex; flex-direction: column; gap: 32px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 14px; }
+    .orb {
+      width: 48px; height: 48px;
+      border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+      background:
+        radial-gradient(circle at 30% 30%, #ffd9c8 0%, transparent 45%),
+        radial-gradient(circle at 70% 70%, #4d6dd9 0%, transparent 55%),
+        linear-gradient(135deg, var(--grad-1) 0%, var(--grad-5) 100%);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.5) inset, 0 6px 18px rgba(60,30,80,0.4);
+      animation: morph 8s ease-in-out infinite;
+    }
+    @keyframes morph {
+      0%,100% { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
+      25% { border-radius: 45% 55% 40% 60% / 60% 45% 55% 40%; }
+      50% { border-radius: 50% 50% 60% 40% / 45% 65% 35% 55%; }
+      75% { border-radius: 65% 35% 45% 55% / 55% 50% 50% 45%; }
+    }
+    .brand-name { font-weight: 700; font-size: 16px; letter-spacing: 0.18em; }
+    .brand-sub { font-family: var(--mono); font-size: 11px; color: var(--ink-on-grad-2); margin-top: 2px; }
+
+    h1 {
+      font-family: var(--serif); font-weight: 500;
+      font-size: clamp(40px, 6vw, 64px);
+      line-height: 1.05; letter-spacing: -0.025em;
+      margin: 0;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.12);
+      max-width: 880px;
+    }
+    h1 em { font-style: italic; color: var(--ink-on-grad); }
+    .lede {
+      max-width: 640px;
+      font-family: var(--serif); font-style: italic;
+      font-size: 17px; line-height: 1.55;
+      color: var(--ink-on-grad-2); margin: 0;
+    }
+
+    .links { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 720px) { .links { grid-template-columns: 1fr; } }
+
+    a.card {
+      text-decoration: none; color: var(--ink);
+      display: flex; flex-direction: column; gap: 10px;
+      padding: 28px 30px;
+      background: var(--glass);
+      -webkit-backdrop-filter: saturate(180%) blur(28px);
+      backdrop-filter: saturate(180%) blur(28px);
+      border: 1px solid var(--rule-strong);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      transition: transform 220ms cubic-bezier(.2,.7,.3,1), box-shadow 280ms ease;
+      border-left: 3px solid #5170d8;
+    }
+    a.card:hover { transform: translateY(-3px); box-shadow: 0 28px 70px rgba(40,20,60,0.32), 0 6px 20px rgba(81,112,216,0.28); }
+    a.card .label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+    a.card .title { font-family: var(--serif); font-size: 26px; letter-spacing: -0.01em; margin: 0; color: var(--ink); }
+    a.card .detail { font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+    a.card .arrow { margin-top: auto; font-size: 24px; color: #5170d8; align-self: flex-end; }
+
+    .meta {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+      padding-top: 20px; border-top: 1px solid var(--rule);
+    }
+    @media (max-width: 720px) { .meta { grid-template-columns: 1fr 1fr; } }
+    .meta-cell { display: flex; flex-direction: column; gap: 2px; }
+    .meta-label { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-on-grad-3); font-weight: 600; }
+    .meta-val { font-size: 14px; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">
+      <div class="orb"></div>
+      <div>
+        <div class="brand-name">STRATA</div>
+        <div class="brand-sub">a design hub for architects · trust as a design variable</div>
+      </div>
+    </div>
+
+    <h1>Calibrating trust in AI for the architect's workflow.</h1>
+    <p class="lede">An interface where the assistant's competence, confidence, and accuracy are visibly differentiated per stage — so a user can rely, verify, override, or refuse the model with the right judgment at the right moment.</p>
+
+    <div class="links">
+      <a class="card" href="./architect-prototype/">
+        <span class="label">live prototype</span>
+        <h2 class="title">STRATA · Riverside Pavilion</h2>
+        <span class="detail">5 stages · 8 plan elements · 12 sources · ⌘+scroll zoom · click-to-inspect blueprint · minimizable advisor orb</span>
+        <span class="arrow">↗</span>
+      </a>
+
+      <a class="card" href="./pitchdeck/">
+        <span class="label">case study deck</span>
+        <h2 class="title">12-slide narrative</h2>
+        <span class="detail">Problem · evidence · competitive landscape · concept · user journey · eval · reflection. Use ←/→ to navigate.</span>
+        <span class="arrow">↗</span>
+      </a>
+    </div>
+
+    <div class="meta">
+      <div class="meta-cell">
+        <span class="meta-label">Course</span>
+        <span class="meta-val">UX for AI · UC Berkeley</span>
+      </div>
+      <div class="meta-cell">
+        <span class="meta-label">Author</span>
+        <span class="meta-val">Lena Ehrenreich</span>
+      </div>
+      <div class="meta-cell">
+        <span class="meta-label">Milestone</span>
+        <span class="meta-val">II · Part II</span>
+      </div>
+      <div class="meta-cell">
+        <span class="meta-label">Opportunity area</span>
+        <span class="meta-val">When to Trust AI</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
