@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trust — A Concept Prototype for AI Interfaces</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app" id="app">
+
+    <!-- ============== HEADER ============== -->
+    <header class="app-header">
+      <div class="app-header-inner">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-name">trust</span>
+          <span class="brand-tag">a concept prototype for AI interfaces</span>
+        </div>
+
+        <div class="header-actions">
+          <button class="header-btn" id="open-legend" aria-haspopup="dialog">
+            <span aria-hidden="true">●</span> legend
+          </button>
+          <button class="header-btn" id="open-trace" aria-pressed="false">
+            <span aria-hidden="true">⊞</span> agent trace
+          </button>
+          <div class="competence" id="competence" data-state="evaluated"
+               role="button" tabindex="0" aria-haspopup="dialog"
+               title="Domain calibration status — click for the calibration card">
+            <span class="competence-dot" aria-hidden="true"></span>
+            <span class="competence-text">
+              <span class="competence-label">domain</span>
+              <span class="competence-state" id="competence-state">evaluated</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============== MAIN ============== -->
+    <main class="app-main">
+
+      <!-- Conversation column -->
+      <section class="conversation" id="conversation" aria-label="Conversation">
+
+        <!-- USER TURN 1 -->
+        <article class="turn turn-user">
+          <div class="turn-meta"><span>you</span></div>
+          <div class="turn-body">
+            <p>I'm building a recommender system for an early-stage e-commerce site.
+              Can you explain the difference between <em>collaborative filtering</em>
+              and <em>content-based</em> approaches, and recommend which to start with?</p>
+          </div>
+        </article>
+
+        <!-- ASSISTANT TURN 1 — explanatory / well-sourced -->
+        <article class="turn turn-assistant" data-turn-id="t1">
+          <div class="turn-meta">
+            <span class="agent-badge">assistant</span>
+            <span class="turn-tools">
+              <button class="tool-btn" data-action="branch" data-target="t1"
+                      title="Show an alternative reading of this response">↻ alternative reading</button>
+              <button class="tool-btn" data-action="verify" data-target="t1"
+                      title="Re-check this response against fresh sources">✓ verify</button>
+              <button class="tool-btn" data-action="copy-cited" data-target="t1"
+                      title="Copy this response with citations attached">⧉ copy with citations</button>
+            </span>
+          </div>
+
+          <div class="turn-body">
+            <!-- modality switcher -->
+            <div class="modality-switch" role="tablist" aria-label="Re-render this response in a different modality">
+              <button class="mode-btn is-active" data-mode="text" role="tab" aria-selected="true">
+                <svg class="mode-icon" viewBox="0 0 16 16" aria-hidden="true">
+                  <line x1="3" y1="5"  x2="13" y2="5" />
+                  <line x1="3" y1="9"  x2="13" y2="9" />
+                  <line x1="3" y1="13" x2="9"  y2="13" />
+                </svg>
+                <span>text</span>
+              </button>
+              <button class="mode-btn" data-mode="bullets" role="tab" aria-selected="false">
+                <svg class="mode-icon" viewBox="0 0 16 16" aria-hidden="true">
+                  <circle cx="4" cy="4"  r="1.4" />
+                  <circle cx="4" cy="8"  r="1.4" />
+                  <circle cx="4" cy="12" r="1.4" />
+                  <line x1="7.5" y1="4"  x2="13" y2="4" />
+                  <line x1="7.5" y1="8"  x2="13" y2="8" />
+                  <line x1="7.5" y1="12" x2="13" y2="12" />
+                </svg>
+                <span>bullets</span>
+              </button>
+              <button class="mode-btn" data-mode="table" role="tab" aria-selected="false">
+                <svg class="mode-icon" viewBox="0 0 16 16" aria-hidden="true">
+                  <rect x="3" y="3" width="10" height="10" rx="1" fill="none" />
+                  <line x1="3" y1="8" x2="13" y2="8" />
+                  <line x1="8" y1="3" x2="8"  y2="13" />
+                </svg>
+                <span>table</span>
+              </button>
+              <button class="mode-btn" data-mode="diagram" role="tab" aria-selected="false">
+                <svg class="mode-icon" viewBox="0 0 16 16" aria-hidden="true">
+                  <circle cx="4"  cy="8" r="2" fill="none" />
+                  <circle cx="12" cy="8" r="2" fill="none" />
+                  <line x1="6" y1="8" x2="10" y2="8" />
+                </svg>
+                <span>diagram</span>
+              </button>
+            </div>
+
+            <!-- TEXT MODALITY -->
+            <div class="modality-pane is-active" data-pane="text">
+              <p class="claim" data-genre="fact">
+                Collaborative filtering and content-based filtering are the two foundational
+                families of recommender system, and most modern systems are
+                <span class="hedge" data-hedge="this is a generalization with known exceptions">hybrids of the two</span>.<sup
+                  class="cite" data-cite="ricci-handbook" tabindex="0" aria-label="Citation 1">1</sup>
+                <span class="confidence" data-level="high">high&nbsp;confidence</span>
+              </p>
+
+              <p class="claim" data-genre="fact">
+                Collaborative filtering learns from patterns in <em>user–item interaction</em>
+                data — ratings, clicks, purchases — without needing to understand the items
+                themselves.<sup class="cite" data-cite="koren-survey" tabindex="0">2</sup>
+                Content-based filtering does the opposite: it represents items by their
+                attributes (text, tags, image features) and recommends items similar to
+                what a user has previously liked.<sup class="cite" data-cite="pazzani-content"
+                  tabindex="0">3</sup>
+              </p>
+
+              <p class="claim" data-genre="numeric">
+                Industry case studies report that collaborative filtering, once warmed up,
+                typically <span class="hedge" data-hedge="reported ranges vary wildly by domain">outperforms
+                content-based methods on click-through</span>, but only after roughly
+                <strong>50–200 interactions per user</strong><sup
+                  class="cite" data-cite="amazon-recsys" tabindex="0">4</sup>.
+                Below that threshold the cold-start problem dominates and content-based
+                or hybrid approaches usually win.
+                <span class="confidence" data-level="medium">medium&nbsp;confidence</span>
+              </p>
+
+              <p class="claim" data-genre="recommendation">
+                <span class="opinion-mark" title="This sentence is a recommendation, not a fact">my read</span>
+                For an early-stage e-commerce site you should
+                <span class="hedge" data-hedge="this assumes <100 interactions/user, which I'm guessing at">almost certainly start
+                content-based</span>, then layer collaborative filtering on once you have
+                meaningful interaction history.
+                <span class="claim-feedback" role="group" aria-label="Feedback on this claim">
+                  <button class="fb-btn" data-fb="accept" title="Accept">✓</button>
+                  <button class="fb-btn" data-fb="refine" title="Refine">↻</button>
+                  <button class="fb-btn" data-fb="reject" title="Reject">✕</button>
+                </span>
+              </p>
+
+              <p class="claim claim-soft" data-genre="recommendation">
+                <span class="opinion-mark">my read</span>
+                A reasonable
+                <span class="hedge" data-hedge="this is a heuristic, not a settled finding">first
+                  build</span> is a TF-IDF or sentence-embedding similarity over your product
+                titles and descriptions, served from a vector store, with a simple
+                <em>"customers also viewed"</em> co-visitation list as a fallback.
+                <span class="claim-feedback" role="group">
+                  <button class="fb-btn" data-fb="accept">✓</button>
+                  <button class="fb-btn" data-fb="refine">↻</button>
+                  <button class="fb-btn" data-fb="reject">✕</button>
+                </span>
+              </p>
+            </div>
+
+            <!-- BULLETS MODALITY -->
+            <div class="modality-pane" data-pane="bullets">
+              <ul class="bullet-list">
+                <li><strong>Collaborative filtering</strong> — learns from user–item
+                  interactions; needs scale; vulnerable to cold-start.<sup class="cite" data-cite="koren-survey">2</sup></li>
+                <li><strong>Content-based</strong> — learns from item attributes; works
+                  with no users; weaker once you have signal.<sup class="cite" data-cite="pazzani-content">3</sup></li>
+                <li><strong>Threshold</strong> — collaborative usually wins after
+                  ~50–200 interactions/user. <span class="confidence" data-level="medium">medium</span><sup class="cite" data-cite="amazon-recsys">4</sup></li>
+                <li><strong>Recommendation</strong> <span class="opinion-mark">my read</span> — start content-based,
+                  layer collaborative as you grow.
+                  <span class="claim-feedback"><button class="fb-btn" data-fb="accept">✓</button><button class="fb-btn" data-fb="refine">↻</button><button class="fb-btn" data-fb="reject">✕</button></span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- TABLE MODALITY -->
+            <div class="modality-pane" data-pane="table">
+              <table class="trust-table">
+                <thead>
+                  <tr>
+                    <th>approach</th>
+                    <th>signal it uses</th>
+                    <th>strengths</th>
+                    <th>fails when</th>
+                    <th>citation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>collaborative</td>
+                    <td>user × item interactions</td>
+                    <td>captures latent taste; serendipitous</td>
+                    <td>few users, few interactions</td>
+                    <td><sup class="cite" data-cite="koren-survey">2</sup></td>
+                  </tr>
+                  <tr>
+                    <td>content-based</td>
+                    <td>item attributes, text, image</td>
+                    <td>works at zero scale; explainable</td>
+                    <td>over-specializes; misses surprising matches</td>
+                    <td><sup class="cite" data-cite="pazzani-content">3</sup></td>
+                  </tr>
+                  <tr>
+                    <td>hybrid</td>
+                    <td>both</td>
+                    <td>industry default</td>
+                    <td>more moving parts; harder to debug</td>
+                    <td><sup class="cite" data-cite="ricci-handbook">1</sup></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- DIAGRAM MODALITY -->
+            <div class="modality-pane" data-pane="diagram">
+              <p class="diagram-instruction">
+                Drag any node to re-arrange. Connections re-flow.
+                Confidence is encoded as node opacity: <strong>solid</strong> = high,
+                faded = lower.
+              </p>
+              <div class="diagram-wrap">
+                <svg class="diagram" id="diagram-recsys" viewBox="0 0 720 360"
+                     xmlns="http://www.w3.org/2000/svg" aria-label="Diagram of recommender system approaches">
+                  <!-- edges drawn by JS -->
+                  <g class="edges"></g>
+                  <g class="nodes">
+                    <g class="node" data-id="cf"     data-x="120" data-y="120" data-conf="high">
+                      <rect width="160" height="60" rx="10" />
+                      <text class="node-title">collaborative</text>
+                      <text class="node-sub">user × item</text>
+                    </g>
+                    <g class="node" data-id="cb"     data-x="120" data-y="240" data-conf="high">
+                      <rect width="160" height="60" rx="10" />
+                      <text class="node-title">content-based</text>
+                      <text class="node-sub">item attributes</text>
+                    </g>
+                    <g class="node" data-id="hybrid" data-x="380" data-y="180" data-conf="high">
+                      <rect width="160" height="60" rx="10" />
+                      <text class="node-title">hybrid</text>
+                      <text class="node-sub">both signals</text>
+                    </g>
+                    <g class="node" data-id="rec"    data-x="560" data-y="180" data-conf="medium">
+                      <rect width="140" height="60" rx="10" />
+                      <text class="node-title">recommendation</text>
+                      <text class="node-sub">to a user</text>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="turn-footer">
+            <span class="trace-line" data-action="open-trace">
+              <span aria-hidden="true">⏵</span>
+              this response made <strong>3 retrieval steps</strong> across 4 sources —
+              <em>open trace</em>
+            </span>
+          </div>
+        </article>
+
+        <!-- USER TURN 2 -->
+        <article class="turn turn-user">
+          <div class="turn-meta"><span>you</span></div>
+          <div class="turn-body">
+            <p>Given my actual user data — about 3,000 monthly visitors, ~400 signed-in
+              users, average ~6 product views per session — what specifically should I
+              build first, and what would it cost in engineering time?</p>
+          </div>
+        </article>
+
+        <!-- ASSISTANT TURN 2 — outside-domain / counter-principle showcase -->
+        <article class="turn turn-assistant turn-anti-trust" data-turn-id="t2">
+          <div class="turn-meta">
+            <span class="agent-badge">assistant</span>
+            <span class="turn-tools">
+              <button class="tool-btn" data-action="branch" data-target="t2">↻ alternative reading</button>
+              <button class="tool-btn" data-action="copy-cited" data-target="t2">⧉ copy with citations</button>
+            </span>
+          </div>
+
+          <div class="turn-body">
+
+            <div class="empty-confession" role="note" aria-label="Honest empty-state">
+              <div class="ec-header">
+                <span class="ec-icon" aria-hidden="true">◐</span>
+                <span class="ec-title">I am operating outside the domain I have been calibrated on.</span>
+              </div>
+              <p class="ec-body">
+                Your specific question — <em>what to build, in what order, at what
+                cost</em> — is grounded in your private data and your team's capacity, neither
+                of which I have. The competence indicator at the top right has shifted to
+                <strong>outside</strong>. I'll answer in two parts:
+                <strong>(a)</strong> what I can say with sources, and <strong>(b)</strong>
+                what I would need from you to give a confident recommendation.
+              </p>
+            </div>
+
+            <h4 class="section-h">(a) what I can say with sources</h4>
+
+            <p class="claim" data-genre="numeric">
+              At <strong>~400 signed-in users with ~6 product views/session</strong>, you are
+              <span class="hedge" data-hedge="rough threshold reported in industry case studies, your mileage will vary">below
+              the threshold</span> at which collaborative filtering reliably outperforms
+              content-based approaches.<sup class="cite" data-cite="amazon-recsys">4</sup>
+              <span class="confidence" data-level="medium">medium</span>
+            </p>
+
+            <p class="claim" data-genre="fact">
+              At your scale, <span class="hedge" data-hedge="documented in Spotify's 2023 retrospective; n=1 case">a
+              well-tuned content-based recommender plus a co-visitation list</span> tends to
+              capture most of the available lift before a full collaborative system would
+              be worth the cost.<sup class="cite" data-cite="spotify-retro">5</sup>
+              <span class="confidence" data-level="medium">medium</span>
+            </p>
+
+            <h4 class="section-h">(b) what I would need to answer your real question</h4>
+
+            <p class="claim claim-no-source" data-genre="inference">
+              <span class="no-source">no source</span>
+              The cost in engineering time depends on
+              <span class="hedge" data-hedge="this depends on stack, vendor pricing, and team experience — none of which I know">your
+              stack and your team's familiarity with vector stores</span>, neither of which
+              I have access to.
+            </p>
+
+            <ul class="ec-checklist" id="ec-checklist">
+              <li class="ec-row" data-row="0">
+                <button class="ec-check" type="button" role="checkbox" aria-checked="false" aria-label="Mark as provided"><span class="ec-dot"></span></button>
+                <span class="ec-body">a sample of <em>product titles + descriptions</em> (anonymized) so I can estimate embedding-space density</span>
+                <button class="ec-action ec-upload" type="button" data-row="0">
+                  <svg class="ec-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 11V3M8 3L5 6M8 3l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 12v1.5A1.5 1.5 0 0 0 4.5 15h7a1.5 1.5 0 0 0 1.5-1.5V12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <span class="ec-action-label">upload</span>
+                </button>
+                <input type="file" class="ec-file" data-row="0" hidden multiple />
+              </li>
+              <li class="ec-row" data-row="1">
+                <button class="ec-check" type="button" role="checkbox" aria-checked="false" aria-label="Mark as provided"><span class="ec-dot"></span></button>
+                <span class="ec-body">rough breakdown of your <em>top 50 products by view-count</em> — concentration affects which approach wins</span>
+                <button class="ec-action ec-upload" type="button" data-row="1">
+                  <svg class="ec-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 11V3M8 3L5 6M8 3l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 12v1.5A1.5 1.5 0 0 0 4.5 15h7a1.5 1.5 0 0 0 1.5-1.5V12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <span class="ec-action-label">upload</span>
+                </button>
+                <input type="file" class="ec-file" data-row="1" hidden multiple />
+              </li>
+              <li class="ec-row" data-row="2">
+                <button class="ec-check" type="button" role="checkbox" aria-checked="false" aria-label="Mark as provided"><span class="ec-dot"></span></button>
+                <span class="ec-body"><em>your team's stack</em> — Python/Node/etc., and whether you already use a vector DB</span>
+                <button class="ec-action ec-upload" type="button" data-row="2">
+                  <svg class="ec-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 11V3M8 3L5 6M8 3l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 12v1.5A1.5 1.5 0 0 0 4.5 15h7a1.5 1.5 0 0 0 1.5-1.5V12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <span class="ec-action-label">upload</span>
+                </button>
+                <input type="file" class="ec-file" data-row="2" hidden multiple />
+              </li>
+              <li class="ec-row ec-row-question" data-row="3">
+                <button class="ec-check" type="button" role="checkbox" aria-checked="false" aria-label="Mark as answered"><span class="ec-dot"></span></button>
+                <span class="ec-body">the <em>user signal you can act on</em> — are signed-in users tracked across sessions?</span>
+                <span class="ec-toggle-group" role="radiogroup" aria-label="signed-in users tracked across sessions">
+                  <button class="ec-toggle" type="button" role="radio" aria-checked="false" data-row="3" data-val="yes">yes</button>
+                  <button class="ec-toggle" type="button" role="radio" aria-checked="false" data-row="3" data-val="no">no</button>
+                </span>
+              </li>
+            </ul>
+
+            <p class="claim claim-soft" data-genre="recommendation">
+              <span class="opinion-mark">my read, even without that data</span>
+              If you must move <span class="hedge" data-hedge="recommendation given your stated stage and traffic numbers, not your data">this
+              week</span>, ship a static <em>"customers also viewed"</em> list from your
+              existing analytics. It's two hours of work and competitive with anything more
+              sophisticated below ~1k interactions per item.
+              <span class="claim-feedback" role="group">
+                <button class="fb-btn" data-fb="accept">✓</button>
+                <button class="fb-btn" data-fb="refine">↻</button>
+                <button class="fb-btn" data-fb="reject">✕</button>
+              </span>
+            </p>
+          </div>
+
+          <div class="turn-footer">
+            <span class="trace-line" data-action="open-trace">
+              <span aria-hidden="true">⏵</span>
+              this response made <strong>1 retrieval step</strong> and <strong>flagged
+              the domain shift</strong> — <em>open trace</em>
+            </span>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- ============== AGENT TRACE PANEL ============== -->
+      <aside class="trace-panel" id="trace-panel" aria-hidden="true" aria-label="Agent trace">
+        <header class="trace-head">
+          <h3>agent trace</h3>
+          <button class="trace-close" id="trace-close" aria-label="Close trace panel">✕</button>
+        </header>
+
+        <div class="trace-body">
+
+          <div class="trace-turn" data-trace-for="t1">
+            <h4>turn 1 — explanatory response</h4>
+            <ol class="trace-steps">
+              <li>
+                <span class="step-tag">retrieve</span>
+                <span class="step-detail">searched for <code>collaborative filtering vs content-based foundations</code> — 12 results, 4 selected by source-class filter</span>
+              </li>
+              <li>
+                <span class="step-tag">read</span>
+                <span class="step-detail">opened <em>Recommender Systems Handbook</em> §1, <em>Koren et al. matrix-factorization survey</em>, <em>Pazzani &amp; Billsus</em>, <em>Amazon RecSys 2023 case study</em></span>
+              </li>
+              <li>
+                <span class="step-tag">draft</span>
+                <span class="step-detail">composed text response; flagged 1 numeric claim as <em>medium</em> confidence after cross-checking the threshold range across two of the four sources</span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="trace-turn" data-trace-for="t2">
+            <h4>turn 2 — outside-domain response</h4>
+            <ol class="trace-steps">
+              <li>
+                <span class="step-tag step-tag-warn">domain&nbsp;check</span>
+                <span class="step-detail">user provided private numerical context (traffic, sessions); recommendation domain has not been evaluated against private user-data scenarios → competence flipped to <strong>outside</strong></span>
+              </li>
+              <li>
+                <span class="step-tag">retrieve</span>
+                <span class="step-detail">searched for <code>recommender threshold low-traffic ecommerce</code> — 7 results, 1 selected (Spotify retrospective)</span>
+              </li>
+              <li>
+                <span class="step-tag step-tag-warn">refuse&nbsp;to&nbsp;extrapolate</span>
+                <span class="step-detail">model declined to estimate engineering-time cost without stack info — surfaced a "what I would need" checklist instead of a fabricated estimate</span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="trace-foot">
+            <p class="trace-note">
+              progressive disclosure: the trace shows what the agent did. The full
+              prompts and tool inputs are one click deeper from each step (omitted in
+              this prototype).
+            </p>
+          </div>
+        </div>
+      </aside>
+
+    </main>
+
+    <!-- ============== STEERING BAR ============== -->
+    <section class="steering" aria-label="Persistent steering for the conversation">
+     <div class="steering-inner">
+      <div class="steer">
+        <span class="steer-label">hedging</span>
+        <div class="seg" data-steer="hedge">
+          <button class="seg-btn" data-val="terse">terse</button>
+          <button class="seg-btn is-active" data-val="measured">measured</button>
+          <button class="seg-btn" data-val="cautious">cautious</button>
+        </div>
+      </div>
+      <div class="steer">
+        <span class="steer-label">sources</span>
+        <div class="seg" data-steer="sources">
+          <button class="seg-btn is-active" data-val="any">any</button>
+          <button class="seg-btn" data-val="peer">peer-reviewed</button>
+          <button class="seg-btn" data-val="own">my docs</button>
+        </div>
+      </div>
+      <div class="steer">
+        <span class="steer-label">audience</span>
+        <div class="seg" data-steer="audience">
+          <button class="seg-btn" data-val="lay">lay</button>
+          <button class="seg-btn is-active" data-val="practitioner">practitioner</button>
+          <button class="seg-btn" data-val="expert">expert</button>
+        </div>
+      </div>
+      <div class="steer steer-toggle">
+        <span class="steer-label">forcing</span>
+        <label class="switch">
+          <input type="checkbox" id="forcing-toggle" />
+          <span class="switch-track" aria-hidden="true"></span>
+          <span class="switch-text">ask me before showing</span>
+        </label>
+      </div>
+     </div>
+    </section>
+
+    <!-- ============== COMPOSER ============== -->
+    <section class="composer" aria-label="New message">
+      <div class="composer-inner">
+        <textarea id="composer" placeholder="Write a follow-up — try changing the steering and re-asking…"
+                  rows="2"></textarea>
+        <div class="composer-actions">
+          <span class="composer-hint">prototype · responses are scripted to demonstrate the trust system</span>
+          <button class="send-btn" id="send-btn">send →</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ============== CITATION HOVER-CARD ============== -->
+  <div class="popover" id="popover" role="dialog" aria-hidden="true">
+    <div class="pop-head">
+      <span class="pop-favicon" id="pop-favicon" aria-hidden="true"></span>
+      <div class="pop-titles">
+        <h5 class="pop-title" id="pop-title"></h5>
+        <span class="pop-domain" id="pop-domain"></span>
+      </div>
+    </div>
+    <p class="pop-snippet" id="pop-snippet"></p>
+    <div class="pop-foot">
+      <span class="pop-class" id="pop-class"></span>
+      <button class="pop-open" id="pop-open">open in side panel →</button>
+    </div>
+  </div>
+
+  <!-- ============== TOOLTIP (hedge / confidence calibration) ============== -->
+  <div class="tooltip" id="tooltip" role="tooltip" aria-hidden="true"></div>
+
+  <!-- ============== SOURCE SIDE PANEL ============== -->
+  <aside class="source-panel" id="source-panel" aria-hidden="true" aria-label="Source detail">
+    <header class="sp-head">
+      <h3 id="sp-title"></h3>
+      <button class="sp-close" id="sp-close" aria-label="Close source">✕</button>
+    </header>
+    <div class="sp-meta">
+      <span class="sp-class" id="sp-class"></span>
+      <span class="sp-domain" id="sp-domain"></span>
+      <span class="sp-year" id="sp-year"></span>
+    </div>
+    <div class="sp-body" id="sp-body"></div>
+    <footer class="sp-foot">
+      <span class="sp-entail" id="sp-entail"></span>
+    </footer>
+  </aside>
+
+  <!-- ============== CALIBRATION MODAL ============== -->
+  <div class="modal-back" id="cal-modal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-labelledby="cal-title">
+      <header class="modal-head">
+        <h3 id="cal-title">how the confidence bands are calibrated</h3>
+        <button class="modal-close" data-modal-close>✕</button>
+      </header>
+      <div class="modal-body">
+        <p>This prototype's <code>high</code>, <code>medium</code>, and <code>low</code>
+        bands are <em>illustrative</em> — they are scripted into the demo content to
+        show the calibration affordance. In a production system, the bands would be
+        validated against a held-out evaluation set.</p>
+        <div class="cal-plot">
+          <div class="cal-row">
+            <span class="cal-label">high</span>
+            <div class="cal-bar"><div class="cal-fill" style="--w: 87%;"></div></div>
+            <span class="cal-num">87% empirical accuracy on test set</span>
+          </div>
+          <div class="cal-row">
+            <span class="cal-label">medium</span>
+            <div class="cal-bar"><div class="cal-fill" style="--w: 64%;"></div></div>
+            <span class="cal-num">64%</span>
+          </div>
+          <div class="cal-row">
+            <span class="cal-label">low</span>
+            <div class="cal-bar"><div class="cal-fill" style="--w: 31%;"></div></div>
+            <span class="cal-num">31%</span>
+          </div>
+        </div>
+        <p class="cal-note">
+          The chart is the kind of thing the user sees once, at first contact with the
+          competence indicator. After that, the indicator at the top-right is a glance
+          surface — the user has seen what the bands are calibrated against and trusts
+          the per-claim pills accordingly.
+        </p>
+        <p class="cal-note cal-warn">
+          <strong>Anti-trust counterpart.</strong> When the model is operating outside
+          its evaluated domain (as it is in turn 2 of this demo), the indicator
+          flips to <code>outside</code> and per-claim confidence pills are suppressed —
+          because the calibration above no longer applies.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== LEGEND MODAL ============== -->
+  <div class="modal-back" id="legend-modal" aria-hidden="true">
+    <div class="modal modal-wide" role="dialog" aria-labelledby="legend-title">
+      <header class="modal-head">
+        <h3 id="legend-title">legend — what each mark in this prototype means</h3>
+        <button class="modal-close" data-modal-close>✕</button>
+      </header>
+      <div class="modal-body">
+        <div class="legend-grid">
+          <div class="legend-row">
+            <span class="legend-sample"><sup class="cite">3</sup></span>
+            <div class="legend-text">
+              <strong>citation chip</strong> — provenance for a claim. Hover for source
+              preview, click for the side-panel. <em>Dimension ① — Sources.</em>
+            </div>
+          </div>
+          <div class="legend-row">
+            <span class="legend-sample"><span class="no-source">no source</span></span>
+            <div class="legend-text">
+              <strong>no-source chip</strong> — claim is opinion, inference, or unsupported.
+              The counter-principle in operation. <em>Dimension ① — Sources, anti-trust.</em>
+            </div>
+          </div>
+          <div class="legend-row">
+            <span class="legend-sample"><span class="confidence" data-level="high">high&nbsp;confidence</span></span>
+            <div class="legend-text">
+              <strong>confidence pill</strong> — model's self-assessed certainty, in calibrated
+              bands rather than numeric percentages. <em>Dimension ② — Confidence.</em>
+            </div>
+          </div>
+          <div class="legend-row">
+            <span class="legend-sample"><span class="hedge static" data-hedge="example hedge">hedged clause</span></span>
+            <div class="legend-text">
+              <strong>hedge typography</strong> — clauses where the model is hedging on
+              purpose, made visible as a dotted underline. <em>Dimension ③ — Semantics.</em>
+            </div>
+          </div>
+          <div class="legend-row">
+            <span class="legend-sample"><span class="opinion-mark">my read</span></span>
+            <div class="legend-text">
+              <strong>opinion marker</strong> — sentence is recommendation/inference, not fact.
+              <em>Dimension ③ — Semantics, anti-trust.</em>
+            </div>
+          </div>
+          <div class="legend-row">
+            <span class="legend-sample">
+              <span class="claim-feedback static"><button class="fb-btn">✓</button><button class="fb-btn">↻</button><button class="fb-btn">✕</button></span>
+            </span>
+            <div class="legend-text">
+              <strong>feedback chips</strong> — accept / refine / reject a specific claim.
+              The Dietvorst modifiability cure. <em>Dimension ④ — Interactions.</em>
+            </div>
+          </div>
+          <div class="legend-row">
+            <span class="legend-sample"><span class="competence-sample">domain&nbsp;evaluated</span></span>
+            <div class="legend-text">
+              <strong>competence indicator</strong> — persistent state at the top: are we in
+              an evaluated domain? Click for the calibration card.
+            </div>
+          </div>
+          <div class="legend-row">
+            <span class="legend-sample"><span class="modality-sample">text · bullets · table · diagram</span></span>
+            <div class="legend-text">
+              <strong>modality switcher</strong> — re-render the same response in a different
+              medium. Visible per-response. <em>Dimension ③ — Modality.</em>
+            </div>
+          </div>
+        </div>
+        <p class="legend-foot">
+          The mapping from sketch annotations to design-system specs is documented in
+          <code>research/06-design-system.md</code> and walked through in
+          <code>research/07-prototype-walkthrough.md</code>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== COGNITIVE-FORCING OVERLAY ============== -->
+  <div class="forcing-overlay" id="forcing-overlay" aria-hidden="true">
+    <div class="forcing-card" role="dialog" aria-labelledby="forcing-title">
+      <h3 id="forcing-title">before I show my answer — what's <em>your</em> read?</h3>
+      <p>You toggled <strong>cognitive forcing</strong> on. Buçinca et al. (2021) found that
+      asking the user to commit before seeing the AI's response measurably reduces
+      overreliance — even though users dislike the friction. Sketch your answer below,
+      then continue.</p>
+      <textarea id="forcing-input" placeholder="Your prediction or position…" rows="4"></textarea>
+      <div class="forcing-actions">
+        <button class="btn-ghost" id="forcing-cancel">cancel</button>
+        <button class="btn-solid" id="forcing-continue">continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== FEEDBACK / REFINE TOAST ============== -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
